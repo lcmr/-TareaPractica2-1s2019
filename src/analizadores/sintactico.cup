@@ -1,0 +1,60 @@
+package analizadores; 
+
+// import arbol.Arbol;
+// import arbol.Ambito;
+// import arbol.Declaracion;
+// import arbol.Instruccion;
+// import arbol.Simbolo.Tipo;
+// import arbol.TablaDeSimbolos;
+import ast.*;
+import java.util.LinkedList;
+import java_cup.runtime.*;
+
+parser code 
+{:
+    /**
+     * Variable en la que se almacena el arbol de sintaxis abstracta que se 
+     * genera luego del analisis sintáctico.
+     */
+    public Nodo AST;
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+            System.err.println("Error Sintáctico en la Línea " + (s.left) +" Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    } 
+    /**
+     * Método al que se llama en el momento en que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+            System.err.println("Error síntactico irrecuperable en la Línea " + (s.left)+ " Columna "+s.right+". Componente " + s.value + " no reconocido."); 
+    }  
+    /**
+     * Método que devuelve el AST que se generó después de realizar el análisis sintáctico. 
+     * @return árbol de sintaxis abstacta que será utilizado posteriormente en la ejecución.
+     */
+     
+    public Nodo getAST() {
+        return AST;
+    }
+:} 
+
+terminal SUMA,MULTIPLICACION;
+terminal String NUM;
+
+non terminal ini;
+non terminal Nodo e;
+
+
+precedence left SUMA;
+precedence left MULTIPLICACION;
+
+start with ini; 
+
+ini ::= e:valor {: parser.AST = valor; :} 
+;
+
+e ::= 	e:val1 SUMA e:val2 {: RESULT = new Suma((Numero)val1, (Numero)val2); :}
+		| e:val1 MULTIPLICACION e:val2 {: RESULT = new Multiplicacion( (Numero)val1, (Numero)val2 ); :}
+		| NUM:val {: RESULT = new Numero( Integer.valueOf(val) ); :}
+;
