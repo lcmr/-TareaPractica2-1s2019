@@ -33,7 +33,7 @@ public class main {
 
 	}
 	
-	public static void interpretar(String text) {
+	public static String interpretar(String text) {
         analizadores.parser pars;
         
         Visitor visitor = new VisitorImplement();
@@ -43,10 +43,10 @@ public class main {
             pars=new analizadores.parser(new analizadores.Lexico(new BufferedReader(new StringReader(text))));
             pars.parse();       
             Raiz = pars.getAST();
-            System.out.println(Raiz.ejecutar(visitor));
+            return String.valueOf(Raiz.accept(visitor)) ;
             
         } catch (Exception ex) {
-            System.out.println("Error fatal en compilación de entrada.");
+            return("Error fatal en compilación de entrada.");
         } 
     }
 

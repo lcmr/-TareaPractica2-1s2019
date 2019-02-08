@@ -27,7 +27,7 @@ public class VisitorImplement implements Visitor {
 	@Override
 	public int visit(Suma suma) {
 		// TODO Auto-generated method stub
-		return suma.operadorIzq.ejecutar(this) + suma.operadorDer.ejecutar(this);
+		return suma.operadorIzq.accept(this) + suma.operadorDer.accept(this);
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class VisitorImplement implements Visitor {
 	@Override
 	public int visit(Multiplicacion multiplicacion) {
 		// TODO Auto-generated method stub
-		return multiplicacion.operadorIzq.ejecutar(this) * multiplicacion.operadorDer.ejecutar(this);
+		return multiplicacion.operadorIzq.accept(this) * multiplicacion.operadorDer.accept(this);
 	}
 
 }

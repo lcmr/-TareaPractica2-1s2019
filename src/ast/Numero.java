@@ -12,7 +12,7 @@ public class Numero implements Nodo {
 	}
 	
 	@Override
-	public int ejecutar(Visitor v) {
+	public int accept(Visitor v) {
 		// TODO Auto-generated method stub
 		return v.visit(this);
 	}
