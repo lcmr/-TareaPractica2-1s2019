@@ -221,16 +221,18 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 4 */ YY_NO_ANCHOR,
 		/* 5 */ YY_NO_ANCHOR,
 		/* 6 */ YY_NO_ANCHOR,
-		/* 7 */ YY_NO_ANCHOR
+		/* 7 */ YY_NO_ANCHOR,
+		/* 8 */ YY_NO_ANCHOR,
+		/* 9 */ YY_NO_ANCHOR
 	};
 	private int yy_cmap[] = unpackFromString(1,65538,
-"6:9,4,3,6:2,4,6:18,4,6:9,2,1,6:4,5:10,6:65478,0:2")[0];
+"8:9,6,5,8:2,6,8:18,6,8:9,4,1,8,2,8,3,7:10,8:65478,0:2")[0];
 
-	private int yy_rmap[] = unpackFromString(1,8,
-"0,1:4,2,3,1")[0];
+	private int yy_rmap[] = unpackFromString(1,10,
+"0,1:6,2,3,1")[0];
 
-	private int yy_nxt[][] = unpackFromString(4,7,
-"1,2,3,4,5,6,7,-1:11,5,-1:7,6,-1");
+	private int yy_nxt[][] = unpackFromString(4,9,
+"1,2,3,4,5,6,7,8,9,-1:15,7,-1:9,8,-1");
 
 	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
@@ -285,26 +287,34 @@ public class Lexico implements java_cup.runtime.Scanner {
 					case -3:
 						break;
 					case 3:
-						{return new Symbol(sym.MULTIPLICACION,yyline,yychar, yytext());}
+						{return new Symbol(sym.RESTA,yyline,yychar, yytext());}
 					case -4:
 						break;
 					case 4:
-						{yychar=1;}
+						{return new Symbol(sym.DIVISION,yyline,yychar, yytext());}
 					case -5:
 						break;
 					case 5:
-						{}
+						{return new Symbol(sym.MULTIPLICACION,yyline,yychar, yytext());}
 					case -6:
 						break;
 					case 6:
-						{return new Symbol(sym.NUM,yyline,yychar, yytext());}
+						{yychar=1;}
 					case -7:
 						break;
 					case 7:
+						{}
+					case -8:
+						break;
+					case 8:
+						{return new Symbol(sym.NUM,yyline,yychar, yytext());}
+					case -9:
+						break;
+					case 9:
 						{
     System.err.println("Este es un error lexico: "+yytext()+", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -8:
+					case -10:
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);

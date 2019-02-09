@@ -28,6 +28,7 @@ NUM=[0-9]+
 
 "+" {return new Symbol(sym.SUMA,yyline,yychar, yytext());} 
 "-" {return new Symbol(sym.RESTA,yyline,yychar, yytext());} 
+"/" {return new Symbol(sym.DIVISION,yyline,yychar, yytext());} 
 "*" {return new Symbol(sym.MULTIPLICACION,yyline,yychar, yytext());} 
 
 \n {yychar=1;}

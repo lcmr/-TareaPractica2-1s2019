@@ -39,7 +39,7 @@ parser code
     }
 :} 
 
-terminal SUMA,MULTIPLICACION,RESTA;
+terminal SUMA,MULTIPLICACION,RESTA,DIVISION, UMENOS;
 terminal String NUM;
 
 non terminal ini;
@@ -47,15 +47,18 @@ non terminal Nodo e;
 
 
 precedence left SUMA,RESTA;
-precedence left MULTIPLICACION;
+precedence left MULTIPLICACION,DIVISION;
+precedence right UMENOS;
 
 start with ini; 
 
 ini ::= e:valor {: parser.AST = valor; :} 
 ;
 
-e ::= 	e:val1 SUMA e:val2 {: RESULT = new Suma((Numero)val1, (Numero)val2); :}
-		|e:val1 RESTA e:val2 {: RESULT = new Resta((Numero)val1, (Numero)val2); :}
-		| e:val1 MULTIPLICACION e:val2 {: RESULT = new Multiplicacion( (Numero)val1, (Numero)val2 ); :}
+e ::= 	  RESTA e:val1 {: RESULT = new RestaUnaria(val1); :} %prec UMENOS
+		| e:val1 SUMA e:val2 {: RESULT = new Suma(val1, val2); :}
+		| e:val1 RESTA e:val2 {: RESULT = new Resta(val1, val2); :}
+		| e:val1 MULTIPLICACION e:val2 {: RESULT = new Multiplicacion( val1, val2 ); :}
+		| e:val1 DIVISION e:val2 {: RESULT = new Division( val1, val2 ); :}
 		| NUM:val {: RESULT = new Numero( Integer.valueOf(val) ); :}
 ;
