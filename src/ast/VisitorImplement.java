@@ -42,4 +42,9 @@ public class VisitorImplement implements Visitor {
 		return multiplicacion.operadorIzq.accept(this) * multiplicacion.operadorDer.accept(this);
 	}
 
+	@Override
+	public int visit(Resta resta) {
+		return resta._izq.accept(this) - resta._der.accept(this);
+	}
+
 }
