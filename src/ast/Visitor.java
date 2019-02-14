@@ -6,7 +6,5 @@ package ast;
  */
 public interface Visitor{
 	int visit(Numero numero);
-	int visit(Suma suma);
-	int visit(Resta resta);
-	int visit(Multiplicacion multiplicacion);
+	int visit(Aritmetica aritmetica);
 }

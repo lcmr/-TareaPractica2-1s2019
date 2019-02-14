@@ -18,33 +18,24 @@ public class VisitorImplement implements Visitor {
 		return numero.getValor();
 	}
 
-	/**
-	 * @param suma	Instancia de la Clase Suma
-	 * 
-	 * esta devuelve el valor suma de sus dos operadores,
-	 * ejecuta el operadorIzq y el operadorDer, hasta llegar a Numero y asi opera su valor
-	 */
 	@Override
-	public int visit(Suma suma) {
-		// TODO Auto-generated method stub
-		return suma.operadorIzq.accept(this) + suma.operadorDer.accept(this);
+	public int visit(Aritmetica _arit) {
+		
+		switch (_arit._tipo) {
+		case RESTA:
+			return _arit._izq.accept(this) - _arit._der.accept(this);	
+		case SUMA:
+			return _arit._izq.accept(this) + _arit._der.accept(this);	
+		case MULTIPLICACION:
+			return _arit._izq.accept(this) * _arit._der.accept(this);	
+		case DIVISION:
+			return _arit._izq.accept(this) / _arit._der.accept(this);		
+		case NEGATIVO:
+			return -( _arit._izq.accept(this));	
+		default:
+			return 0;
+		}
+		
 	}
-
-	/**
-	 * @param multiplicacion	Instancia de la Clase Multiplicacion
-	 * 
-	 * esta devuelve el valor multiplicacion de sus dos operadores,
-	 * ejecuta el operadorIzq y el operadorDer, hasta llegar a Numero y asi opera su valor
-	 */
-	@Override
-	public int visit(Multiplicacion multiplicacion) {
-		// TODO Auto-generated method stub
-		return multiplicacion.operadorIzq.accept(this) * multiplicacion.operadorDer.accept(this);
-	}
-
-	@Override
-	public int visit(Resta resta) {
-		return resta._izq.accept(this) - resta._der.accept(this);
-	}
-
+	
 }
